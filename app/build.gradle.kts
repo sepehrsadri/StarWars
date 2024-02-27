@@ -2,6 +2,8 @@
 plugins {
   alias(libs.plugins.com.android.application)
   alias(libs.plugins.org.jetbrains.kotlin.android)
+  alias(libs.plugins.ksp)
+  alias(libs.plugins.hilt)
 }
 
 android {
@@ -65,6 +67,7 @@ android {
 }
 
 dependencies {
+  implementation(projects.core.logger)
 
   implementation(libs.core.ktx)
   implementation(libs.lifecycle.runtime.ktx)
@@ -81,4 +84,7 @@ dependencies {
   androidTestImplementation(libs.ui.test.junit4)
   debugImplementation(libs.ui.tooling)
   debugImplementation(libs.ui.test.manifest)
+
+  implementation(libs.hilt.android)
+  ksp(libs.hilt.compiler)
 }
