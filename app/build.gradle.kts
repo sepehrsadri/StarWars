@@ -22,9 +22,25 @@ android {
   }
 
   buildTypes {
-    release {
+    debug {
+      isShrinkResources = false
       isMinifyEnabled = false
-      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+      isCrunchPngs = false
+      isDebuggable = true
+      enableUnitTestCoverage = true
+      applicationIdSuffix = ".dev"
+      versionNameSuffix = "-dev"
+      signingConfig = signingConfigs.getByName("debug")
+    }
+    release {
+      isShrinkResources = true
+      isMinifyEnabled = true
+      isCrunchPngs = true
+      isDebuggable = false
+      enableUnitTestCoverage = false
+      proguardFiles(
+        "proguard-rules.pro", getDefaultProguardFile("proguard-android.txt")
+      )
     }
   }
   compileOptions {
@@ -36,6 +52,7 @@ android {
   }
   buildFeatures {
     compose = true
+    buildConfig = true
   }
   composeOptions {
     kotlinCompilerExtensionVersion = "1.5.7"
