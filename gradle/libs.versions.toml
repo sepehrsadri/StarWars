@@ -1,27 +1,27 @@
 [versions]
-agp = "8.1.3"
-org-jetbrains-kotlin-android = "1.9.10"
-core-ktx = "1.9.0"
+agp = "8.2.2"
+org-jetbrains-kotlin-android = "1.9.21"
+core-ktx = "1.12.0"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
-lifecycle-runtime-ktx = "2.6.2"
-activity-compose = "1.8.0"
-compose-bom = "2023.03.00"
+lifecycle-runtime-ktx = "2.7.0"
+activity-compose = "1.8.2"
+compose-bom = "2024.02.01"
 appcompat = "1.6.1"
-androidxHiltNavigationCompose = "1.1.0"
-hilt = "2.48.1"
+androidxHiltNavigationCompose = "1.2.0"
+hilt = "2.50"
 retrofit = "2.9.0"
 retrofitKotlinxSerializationJson = "1.0.0"
-ksp = "1.9.10-1.0.13"
+ksp = "1.9.21-1.0.16"
 okhttp = "4.12.0"
 kotlinxSerializationJson = "1.6.0"
 kotlinxCoroutines = "1.7.3"
-androidxNavigation = "2.7.5"
-androidxWindowManager = "1.1.0"
+androidxNavigation = "2.7.7"
+androidxWindowManager = "1.2.0"
 timber = "5.0.1"
-material3 = "1.1.2"
-material = "1.10.0"
+material3 = "1.2.0"
+material = "1.11.0"
 turbine = "1.0.0"
 androidxCoreSplashscreen = "1.0.1"
 androidxDataStore = "1.0.0"
@@ -72,7 +72,3 @@ com-android-library = { id = "com.android.library", version.ref = "agp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "org-jetbrains-kotlin-android" }
-
-
-[bundles]
-
