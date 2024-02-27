@@ -2,6 +2,8 @@
 plugins {
   alias(libs.plugins.com.android.application)
   alias(libs.plugins.org.jetbrains.kotlin.android)
+  alias(libs.plugins.ksp)
+  alias(libs.plugins.hilt)
 }
 
 android {
@@ -22,9 +24,25 @@ android {
   }
 
   buildTypes {
-    release {
+    debug {
+      isShrinkResources = false
       isMinifyEnabled = false
-      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+      isCrunchPngs = false
+      isDebuggable = true
+      enableUnitTestCoverage = true
+      applicationIdSuffix = ".dev"
+      versionNameSuffix = "-dev"
+      signingConfig = signingConfigs.getByName("debug")
+    }
+    release {
+      isShrinkResources = true
+      isMinifyEnabled = true
+      isCrunchPngs = true
+      isDebuggable = false
+      enableUnitTestCoverage = false
+      proguardFiles(
+        "proguard-rules.pro", getDefaultProguardFile("proguard-android.txt")
+      )
     }
   }
   compileOptions {
@@ -36,6 +54,7 @@ android {
   }
   buildFeatures {
     compose = true
+    buildConfig = true
   }
   composeOptions {
     kotlinCompilerExtensionVersion = "1.5.7"
@@ -48,6 +67,7 @@ android {
 }
 
 dependencies {
+  implementation(projects.core.logger)
 
   implementation(libs.core.ktx)
   implementation(libs.lifecycle.runtime.ktx)
@@ -64,4 +84,7 @@ dependencies {
   androidTestImplementation(libs.ui.test.junit4)
   debugImplementation(libs.ui.tooling)
   debugImplementation(libs.ui.test.manifest)
+
+  implementation(libs.hilt.android)
+  ksp(libs.hilt.compiler)
 }
