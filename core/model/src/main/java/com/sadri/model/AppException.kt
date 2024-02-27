@@ -29,4 +29,8 @@ sealed class AppException(
     message = "Something went wrong! = No network connection code",
     cause = cause
   )
+
+  data object Empty : AppException(
+    message = "Something went wrong! = no items found"
+  )
 }
