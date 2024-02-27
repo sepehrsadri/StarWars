@@ -2,12 +2,10 @@
 plugins {
   alias(libs.plugins.com.android.library)
   alias(libs.plugins.org.jetbrains.kotlin.android)
-  alias(libs.plugins.ksp)
-  alias(libs.plugins.hilt)
 }
 
 android {
-  namespace = "com.sadri.data"
+  namespace = "com.sadri.common"
   compileSdk = 34
 
   defaultConfig {
@@ -34,17 +32,13 @@ android {
 
 dependencies {
 
-  implementation(projects.core.network)
   implementation(projects.core.model)
-  implementation(projects.core.common)
 
-  implementation(libs.hilt.android)
-  ksp(libs.hilt.compiler)
-
-  implementation(libs.kotlinx.coroutines.android)
   implementation(libs.core.ktx)
   implementation(libs.appcompat)
+  implementation(libs.material)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.test.ext.junit)
   androidTestImplementation(libs.espresso.core)
+  implementation(libs.retrofit.core)
 }

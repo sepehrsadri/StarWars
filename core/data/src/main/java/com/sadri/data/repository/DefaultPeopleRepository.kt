@@ -1,5 +1,6 @@
 package com.sadri.data.repository
 
+import com.sadri.common.toNetworkException
 import com.sadri.data.mapper.asEntity
 import com.sadri.model.AppException
 import com.sadri.model.PeopleResultEntity
@@ -21,7 +22,7 @@ class DefaultPeopleRepository @Inject constructor(
             emit(Result.success(response.asEntity()))
           }
         }
-        .onFailure { emit(Result.failure(it)) }
+        .onFailure { emit(Result.failure(it.toNetworkException())) }
     }
   }
 }
