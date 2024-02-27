@@ -36,6 +36,7 @@ dependencies {
 
   implementation(projects.core.network)
   implementation(projects.core.model)
+  implementation(projects.core.common)
 
   implementation(libs.hilt.android)
   ksp(libs.hilt.compiler)
