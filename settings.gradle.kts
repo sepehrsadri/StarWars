@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "StarWars"
 include(":app")
- 
+include(":core:designsystem")
