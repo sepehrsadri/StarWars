@@ -54,13 +54,16 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.sadri.designsystem.component.AnimationState
 import com.sadri.designsystem.component.Error
 import com.sadri.designsystem.component.Loading
 import com.sadri.designsystem.component.OnLifecycleEvent
 import com.sadri.designsystem.component.shakeKeyframes
 import com.sadri.designsystem.theme.space
+import com.sadri.model.AppException
 import com.sadri.model.PeopleEntity
 import kotlinx.coroutines.launch
 
@@ -70,11 +73,11 @@ fun SearchRoute(
   modifier: Modifier = Modifier,
   viewModel: SearchViewModel = hiltViewModel()
 ) {
-  val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+  val people = viewModel.uiState.collectAsLazyPagingItems()
 
   SearchScreen(
     modifier = modifier,
-    uiState = uiState.value,
+    lazyPagingItems = people,
     onValueChanged = viewModel::setSearchText,
     onSubmitSearchClicked = viewModel::search,
     retry = viewModel::onRetry
@@ -84,13 +87,12 @@ fun SearchRoute(
 @Composable
 private fun SearchScreen(
   modifier: Modifier,
-  uiState: SearchUiState,
+  lazyPagingItems: LazyPagingItems<PeopleEntity>,
   onValueChanged: (String) -> Unit,
   onSubmitSearchClicked: (String) -> Unit,
   retry: () -> Unit
 ) {
   val focusRequester = remember { FocusRequester() }
-  val keyboardController = LocalSoftwareKeyboardController.current
   Scaffold(
     modifier = modifier,
     topBar = {
@@ -104,65 +106,79 @@ private fun SearchScreen(
   ) { contentPadding ->
     val innerModifier = Modifier.padding(contentPadding)
 
-    LaunchedEffect(uiState) {
-      if (uiState == SearchUiState.Loading) {
-        keyboardController?.hide()
-      }
-    }
-
     Box(
       modifier = innerModifier
         .fillMaxSize()
         .background(color = MaterialTheme.colorScheme.background)
         .padding(MaterialTheme.space.medium)
     ) {
-      when (uiState) {
-        is SearchUiState.Error -> {
-          Error(
-            message = requireNotNull(uiState.error.message),
-            retry = retry
-          )
-        }
-        SearchUiState.Loading -> {
-          Loading()
-        }
-        is SearchUiState.Success -> {
-          PeopleList(
-            items = uiState.result.results,
-            modifier = innerModifier
-          )
-        }
-        SearchUiState.Nothing -> {
-          EmptyState()
-        }
-      }
+      PeopleList(
+        items = lazyPagingItems,
+        modifier = innerModifier,
+        retry = retry
+      )
     }
   }
 }
 
 @Composable
-private fun BoxScope.EmptyState() {
-  Image(
-    modifier = Modifier.align(Alignment.Center),
-    painter = painterResource(id = R.drawable.ic_no_result),
-    contentDescription = "Login icon"
-  )
-}
-
-@Composable
 private fun PeopleList(
-  items: List<PeopleEntity>,
-  modifier: Modifier = Modifier
+  items: LazyPagingItems<PeopleEntity>,
+  modifier: Modifier = Modifier,
+  retry: () -> Unit
 ) {
+  val keyboardController = LocalSoftwareKeyboardController.current
   LazyColumn(
     modifier = modifier,
     contentPadding = PaddingValues(MaterialTheme.space.medium)
   )
   {
-    items.forEach { todoItem ->
-      val todoItemId = todoItem.name
-      item(key = todoItemId) {
-        PeopleItem(todoItem)
+    items(items.itemCount) { index ->
+      PeopleItem(peopleItem = requireNotNull(items[index]))
+    }
+    items.apply {
+      when {
+        loadState.refresh is LoadState.Loading || loadState.append is LoadState.Loading -> {
+          keyboardController?.hide()
+          item {
+            Box(
+              modifier = Modifier.fillMaxWidth(),
+              contentAlignment = Alignment.Center
+            ) {
+              Loading()
+            }
+          }
+        }
+        loadState.refresh is LoadState.Error && items.itemCount == 0 -> {
+          item {
+            Box(
+              modifier = Modifier.fillMaxWidth(),
+              contentAlignment = Alignment.Center
+            ) {
+              val error = (loadState.refresh as LoadState.Error).error
+              Error(
+                message = requireNotNull(error.message),
+                retry = retry
+              )
+            }
+          }
+        }
+
+        loadState.refresh is LoadState.NotLoading && items.itemCount == 0 -> {
+          item {
+            Box(
+              modifier = Modifier.fillMaxWidth(),
+              contentAlignment = Alignment.Center
+            ) {
+              Image(
+                modifier = Modifier.align(Alignment.Center),
+                painter = painterResource(id = R.drawable.ic_no_result),
+                contentDescription = stringResource(id = R.string.no_result_description)
+              )
+            }
+          }
+
+        }
       }
     }
   }
