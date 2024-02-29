@@ -9,7 +9,7 @@ class PeopleDataSource @Inject constructor(
   private val peopleService: PeopleService
 ) {
 
-  suspend fun getPeople(name: String): Result<PeopleResultResponse> = safeApiCall {
-    peopleService.getPeople(name)
+  suspend fun getPeople(name: String, page: Int): Result<PeopleResultResponse> = safeApiCall {
+    peopleService.getPeople(name, page)
   }
 }

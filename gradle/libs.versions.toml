@@ -25,6 +25,8 @@ material = "1.11.0"
 turbine = "1.0.0"
 androidxCoreSplashscreen = "1.0.1"
 androidxDataStore = "1.0.0"
+paging = "3.2.1"
+pagingCompose = "3.3.0-alpha03"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -63,7 +65,8 @@ material = { group = "com.google.android.material", name = "material", version.r
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
-androidx-dataStore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "androidxDataStore" }
+androidx-paging = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
+androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "pagingCompose" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }

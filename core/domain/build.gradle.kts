@@ -37,6 +37,7 @@ dependencies {
   implementation(projects.core.model)
   implementation(libs.kotlinx.coroutines.android)
 
+  implementation(libs.androidx.paging)
   implementation(libs.core.ktx)
   implementation(libs.appcompat)
   testImplementation(libs.junit)
