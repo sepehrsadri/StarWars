@@ -7,6 +7,7 @@ import retrofit2.http.Query
 interface PeopleService {
   @GET(value = "people")
   suspend fun getPeople(
-    @Query("search") name: String
+    @Query("search") name: String,
+    @Query("page") page: Int
   ): PeopleResultResponse
 }

@@ -1,8 +1,9 @@
 package com.sadri.data.repository
 
-import com.sadri.model.PeopleResultEntity
+import androidx.paging.PagingData
+import com.sadri.model.PeopleEntity
 import kotlinx.coroutines.flow.Flow
 
 interface PeopleRepository {
-  fun getPeople(name: String): Flow<Result<PeopleResultEntity>>
+  fun getPeople(name: String): Flow<PagingData<PeopleEntity>>
 }
