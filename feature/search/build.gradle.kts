@@ -47,6 +47,8 @@ dependencies {
   implementation(projects.core.common)
   implementation(projects.core.data)
 
+  implementation(libs.androidx.paging)
+  implementation(libs.androidx.paging.compose)
   implementation(libs.androidx.lifecycle.runtimeCompose)
   implementation(libs.androidx.lifecycle.viewModelCompose)
   implementation(libs.androidx.navigation.compose)

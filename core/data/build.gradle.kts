@@ -38,6 +38,7 @@ dependencies {
   implementation(projects.core.model)
   implementation(projects.core.common)
 
+  implementation(libs.androidx.paging)
   implementation(libs.hilt.android)
   ksp(libs.hilt.compiler)
 
