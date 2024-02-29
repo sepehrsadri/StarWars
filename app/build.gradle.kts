@@ -67,16 +67,23 @@ android {
 }
 
 dependencies {
+  implementation(projects.feature.search)
+  implementation(projects.core.designsystem)
   implementation(projects.core.logger)
 
-  implementation(libs.core.ktx)
-  implementation(libs.lifecycle.runtime.ktx)
-  implementation(libs.activity.compose)
   implementation(platform(libs.compose.bom))
+  implementation(libs.material3)
+  implementation(libs.androidx.compose.material3.windowSizeClass)
+  implementation(libs.androidx.window.manager)
+  implementation(libs.androidx.lifecycle.runtimeCompose)
+  implementation(libs.androidx.lifecycle.viewModelCompose)
+  implementation(libs.androidx.navigation.compose)
+  implementation(libs.lifecycle.runtime.ktx)
+  implementation(libs.core.ktx)
+  implementation(libs.activity.compose)
   implementation(libs.ui)
   implementation(libs.ui.graphics)
   implementation(libs.ui.tooling.preview)
-  implementation(libs.material3)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.test.ext.junit)
   androidTestImplementation(libs.espresso.core)
@@ -85,6 +92,7 @@ dependencies {
   debugImplementation(libs.ui.tooling)
   debugImplementation(libs.ui.test.manifest)
 
+  implementation(libs.androidx.hilt.navigation.compose)
   implementation(libs.hilt.android)
   ksp(libs.hilt.compiler)
 }
