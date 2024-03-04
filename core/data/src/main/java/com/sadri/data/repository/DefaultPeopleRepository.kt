@@ -14,7 +14,7 @@ class DefaultPeopleRepository @Inject constructor(
 ) : PeopleRepository {
   override fun getPeople(name: String): Flow<PagingData<PeopleEntity>> {
     return Pager(
-      config = PagingConfig(pageSize = 20, prefetchDistance = 2, enablePlaceholders = false)
+      config = PagingConfig(pageSize = 10, prefetchDistance = 2, enablePlaceholders = false)
     ) {
       PeoplePagingSource(
         name = name,
