@@ -3,4 +3,6 @@
     <string name="search_content_description">Search</string>
     <string name="no_result_description">No result</string>
     <string name="search_hint">Search for character</string>
+    <string name="search_text_filed_test_tag">search text field test tag</string>
+    <string name="search_lazy_column_test_tag">search lazy column test tag</string>
 </resources>

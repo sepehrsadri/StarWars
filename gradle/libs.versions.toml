@@ -27,6 +27,7 @@ androidxCoreSplashscreen = "1.0.1"
 androidxDataStore = "1.0.0"
 paging = "3.2.1"
 pagingCompose = "3.3.0-alpha03"
+mockk = "1.13.10"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -67,6 +68,9 @@ turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 androidx-paging = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "pagingCompose" }
+androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "paging" }
+androidx-paging-testing = { group = "androidx.paging", name = "paging-testing", version.ref = "paging" }
+io-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }

@@ -2,7 +2,7 @@ package com.sadri.network.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.sadri.network.Constants
-import com.sadri.network.api.PeopleService
+import com.sadri.network.api.DefaultPeopleService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -63,8 +63,7 @@ object NetworkModule {
 
   @Provides
   @Singleton
-  fun providePeopleService(retrofit: Retrofit): PeopleService {
-    return retrofit.create(PeopleService::class.java)
+  fun providePeopleService(retrofit: Retrofit): DefaultPeopleService {
+    return retrofit.create(DefaultPeopleService::class.java)
   }
-
 }

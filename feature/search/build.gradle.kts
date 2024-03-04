@@ -13,7 +13,7 @@ android {
   defaultConfig {
     minSdk = 24
 
-    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner = "com.sadri.testing.TestRunner"
     consumerProguardFiles("consumer-rules.pro")
   }
 
@@ -38,6 +38,12 @@ android {
   composeOptions {
     kotlinCompilerExtensionVersion = "1.5.7"
   }
+
+  testOptions {
+    unitTests {
+      isReturnDefaultValues = true
+    }
+  }
 }
 
 dependencies {
@@ -46,6 +52,9 @@ dependencies {
   implementation(projects.core.model)
   implementation(projects.core.common)
   implementation(projects.core.data)
+  implementation(projects.core.network)
+  testImplementation(projects.core.testing)
+  androidTestImplementation(projects.core.testing)
 
   implementation(libs.androidx.paging)
   implementation(libs.androidx.paging.compose)
@@ -58,13 +67,18 @@ dependencies {
   implementation(libs.ui.graphics)
   implementation(libs.ui.tooling.preview)
   implementation(libs.material3)
+  testImplementation(libs.io.mockk)
+  testImplementation(libs.androidx.paging.testing)
   testImplementation(libs.junit)
+  testImplementation(libs.kotlinx.coroutines.test)
   androidTestImplementation(libs.androidx.test.ext.junit)
   androidTestImplementation(libs.espresso.core)
-  androidTestImplementation(platform(libs.compose.bom))
-  androidTestImplementation(libs.ui.test.junit4)
   debugImplementation(libs.ui.tooling)
   debugImplementation(libs.ui.test.manifest)
+  androidTestImplementation(platform(libs.compose.bom))
+  androidTestImplementation(libs.ui.test.manifest)
+  androidTestImplementation(libs.ui.test.junit4)
+  androidTestImplementation(libs.hilt.android.testing)
 
 
   implementation(libs.androidx.hilt.navigation.compose)
