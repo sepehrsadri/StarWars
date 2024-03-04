@@ -49,7 +49,6 @@ class SearchViewModel @Inject constructor(
       useCase.invoke(query)
         .collect { data ->
           _uiState.value = data
-
         }
     }
   }
