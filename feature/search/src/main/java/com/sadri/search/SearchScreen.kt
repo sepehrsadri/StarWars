@@ -7,7 +7,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -43,6 +42,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextRange
@@ -63,7 +63,6 @@ import com.sadri.designsystem.component.Loading
 import com.sadri.designsystem.component.OnLifecycleEvent
 import com.sadri.designsystem.component.shakeKeyframes
 import com.sadri.designsystem.theme.space
-import com.sadri.model.AppException
 import com.sadri.model.PeopleEntity
 import kotlinx.coroutines.launch
 
@@ -86,7 +85,7 @@ fun SearchRoute(
 
 @Composable
 private fun SearchScreen(
-  modifier: Modifier,
+  modifier: Modifier = Modifier,
   lazyPagingItems: LazyPagingItems<PeopleEntity>,
   onValueChanged: (String) -> Unit,
   onSubmitSearchClicked: (String) -> Unit,
@@ -129,7 +128,7 @@ private fun PeopleList(
 ) {
   val keyboardController = LocalSoftwareKeyboardController.current
   LazyColumn(
-    modifier = modifier,
+    modifier = modifier.testTag(stringResource(id = R.string.search_lazy_column_test_tag)),
     contentPadding = PaddingValues(MaterialTheme.space.medium)
   )
   {
@@ -285,7 +284,9 @@ private fun SearchBox(
 
     Box {
       BasicTextField(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+          .fillMaxWidth()
+          .testTag(stringResource(id = R.string.search_text_filed_test_tag)),
         value = textFieldState.value,
         onValueChange = {
           textFieldState.value = it
