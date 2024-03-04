@@ -36,11 +36,14 @@ dependencies {
   implementation(projects.core.data)
   implementation(projects.core.model)
   implementation(libs.kotlinx.coroutines.android)
+  testImplementation(projects.core.testing)
 
   implementation(libs.androidx.paging)
   implementation(libs.core.ktx)
   implementation(libs.appcompat)
+  testImplementation(libs.io.mockk)
   testImplementation(libs.junit)
+  testImplementation(libs.kotlinx.coroutines.test)
   androidTestImplementation(libs.androidx.test.ext.junit)
   androidTestImplementation(libs.espresso.core)
 
