@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+  testImplementation(projects.core.testing)
 
   implementation(libs.core.ktx)
   implementation(libs.appcompat)
@@ -48,4 +49,8 @@ dependencies {
   implementation(libs.retrofit.kotlin.serialization)
   implementation(libs.kotlinx.serialization.json)
   implementation(libs.okhttp.logging)
+  testImplementation(libs.junit)
+  testImplementation(libs.kotlinx.coroutines.test)
+  androidTestImplementation(libs.androidx.test.ext.junit)
+  androidTestImplementation(libs.espresso.core)
 }
