@@ -68,8 +68,10 @@ android {
 
 dependencies {
   implementation(projects.feature.search)
+  implementation(projects.feature.detail)
   implementation(projects.core.designsystem)
   implementation(projects.core.logger)
+  implementation(projects.core.model)
 
   implementation(platform(libs.compose.bom))
   implementation(libs.material3)

@@ -28,6 +28,7 @@ androidxDataStore = "1.0.0"
 paging = "3.2.1"
 pagingCompose = "3.3.0-alpha03"
 mockk = "1.13.10"
+gson = "2.10.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -71,6 +72,7 @@ androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", 
 androidx-paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "paging" }
 androidx-paging-testing = { group = "androidx.paging", name = "paging-testing", version.ref = "paging" }
 io-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
@@ -79,3 +81,4 @@ com-android-library = { id = "com.android.library", version.ref = "agp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "org-jetbrains-kotlin-android" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "org-jetbrains-kotlin-android" }

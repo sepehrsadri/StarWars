@@ -70,7 +70,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun SearchRoute(
   modifier: Modifier = Modifier,
-  viewModel: SearchViewModel = hiltViewModel()
+  viewModel: SearchViewModel = hiltViewModel(),
+  onPeopleClicked: (PeopleEntity) -> Unit
 ) {
   val people = viewModel.uiState.collectAsLazyPagingItems()
 
@@ -79,7 +80,8 @@ fun SearchRoute(
     lazyPagingItems = people,
     onValueChanged = viewModel::setSearchText,
     onSubmitSearchClicked = viewModel::search,
-    retry = viewModel::onRetry
+    retry = viewModel::onRetry,
+    onPeopleClicked = onPeopleClicked
   )
 }
 
@@ -89,7 +91,8 @@ private fun SearchScreen(
   lazyPagingItems: LazyPagingItems<PeopleEntity>,
   onValueChanged: (String) -> Unit,
   onSubmitSearchClicked: (String) -> Unit,
-  retry: () -> Unit
+  retry: () -> Unit,
+  onPeopleClicked: (PeopleEntity) -> Unit
 ) {
   val focusRequester = remember { FocusRequester() }
   Scaffold(
@@ -114,7 +117,8 @@ private fun SearchScreen(
       PeopleList(
         items = lazyPagingItems,
         modifier = innerModifier,
-        retry = retry
+        retry = retry,
+        onPeopleClicked = onPeopleClicked
       )
     }
   }
@@ -124,7 +128,8 @@ private fun SearchScreen(
 private fun PeopleList(
   items: LazyPagingItems<PeopleEntity>,
   modifier: Modifier = Modifier,
-  retry: () -> Unit
+  retry: () -> Unit,
+  onPeopleClicked: (PeopleEntity) -> Unit
 ) {
   val keyboardController = LocalSoftwareKeyboardController.current
   LazyColumn(
@@ -133,7 +138,10 @@ private fun PeopleList(
   )
   {
     items(items.itemCount) { index ->
-      PeopleItem(peopleItem = requireNotNull(items[index]))
+      PeopleItem(
+        peopleItem = requireNotNull(items[index]),
+        onPeopleClicked = onPeopleClicked
+      )
     }
     items.apply {
       when {
@@ -185,11 +193,14 @@ private fun PeopleList(
 
 @Composable
 private fun PeopleItem(
-  peopleItem: PeopleEntity
+  peopleItem: PeopleEntity,
+  onPeopleClicked: (PeopleEntity) -> Unit
 ) {
   Spacer(modifier = Modifier.height(MaterialTheme.space.small))
   Card(
-    modifier = Modifier.fillMaxWidth(),
+    modifier = Modifier
+      .fillMaxWidth()
+      .clickable { onPeopleClicked.invoke(peopleItem) },
     shape = RoundedCornerShape(4.dp),
     colors = CardDefaults.cardColors(
       containerColor = MaterialTheme.colorScheme.onSurface
