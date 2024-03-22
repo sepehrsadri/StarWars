@@ -3,6 +3,7 @@ package com.sadri.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.sadri.domain.GetPeopleUseCase
 import com.sadri.model.PeopleEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,6 +48,7 @@ class SearchViewModel @Inject constructor(
     if (query.isEmpty()) return
     viewModelScope.launch {
       useCase.invoke(query)
+        .cachedIn(viewModelScope)
         .collect { data ->
           _uiState.value = data
         }
